@@ -33,7 +33,7 @@ function roll() {
     var rand1 = Math.ceil(Math.random()*6);
     var rand2 = Math.ceil(Math.random()*6);
 
-    if(doubleRoll>0) {
+    if(doubleRoll>0 && Math.abs(rand1-rand2)!=5) {
         if(rand1>rand2) {
             win.innerHTML = "Round Winner: Player 1🚩";
             p1Score+=2*(rand1-rand2);
