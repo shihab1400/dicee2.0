@@ -17,15 +17,25 @@ var footerName = document.querySelector(".footer span");
 var c = 0;
 var doubleRoll = 0;
 var myInterval;
-var thousand;
+var btn;
+var rnRand;
 
 document.querySelector(".btn").addEventListener("click", function() {
-    thousand = 0;
+    footerName.innerHTML = "Shihab🙂";
+    btn = 0;
     roll();
 });
 
 document.querySelector(".btn1000").addEventListener("click", function() {
-    thousand = 1;
+    footerName.innerHTML = "Shihab🙂";
+    btn = 1;
+    myInterval = setInterval(roll, 1);
+});
+
+document.querySelector(".btnRN").addEventListener("click", function() {
+    footerName.innerHTML = "Shihab🙂";
+    btn = 2;
+    rnRand = Math.ceil(Math.random()*5000)+5000;
     myInterval = setInterval(roll, 1);
 });
 
@@ -33,26 +43,28 @@ function roll() {
     var rand1 = Math.ceil(Math.random()*6);
     var rand2 = Math.ceil(Math.random()*6);
 
-    if(doubleRoll>0 && Math.abs(rand1-rand2)!=5) {
-        if(rand1>rand2) {
-            win.innerHTML = "Round Winner: Player 1🚩";
-            p1Score+=2*(rand1-rand2);
-        } else if(rand1<rand2) {
-            win.innerHTML = "Round Winner: Player 2🚩";
-            p2Score+=2*(rand2-rand1);
-        } else {
-            win.innerHTML = "Round Winner: ⭐Draw!⭐";
-        }
-        doubleRoll--;
-    } else if(Math.abs(rand1-rand2)!=5) {
-        if(rand1>rand2) {
-            win.innerHTML = "Round Winner: Player 1🚩";
-            p1Score+=(rand1-rand2);
-        } else if(rand1<rand2) {
-            win.innerHTML = "Round Winner: Player 2🚩";
-            p2Score+=(rand2-rand1);
-        } else {
-            win.innerHTML = "Round Winner: ⭐Draw!⭐";
+    if(btn===0) {
+        if(doubleRoll>0 && Math.abs(rand1-rand2)!=5) {
+            if(rand1>rand2) {
+                win.innerHTML = "Round Winner: Player 1🚩";
+                p1Score+=2*(rand1-rand2);
+            } else if(rand1<rand2) {
+                win.innerHTML = "Round Winner: Player 2🚩";
+                p2Score+=2*(rand2-rand1);
+            } else {
+                win.innerHTML = "Round Winner: ⭐Draw!⭐";
+            }
+            doubleRoll--;
+        } else if(Math.abs(rand1-rand2)!=5) {
+            if(rand1>rand2) {
+                win.innerHTML = "Round Winner: Player 1🚩";
+                p1Score+=(rand1-rand2);
+            } else if(rand1<rand2) {
+                win.innerHTML = "Round Winner: Player 2🚩";
+                p2Score+=(rand2-rand1);
+            } else {
+                win.innerHTML = "Round Winner: ⭐Draw!⭐";
+            }
         }
     }
 
@@ -84,18 +96,18 @@ function roll() {
     c++;
     count.innerHTML = c;
 
-    if(thousand===1) {
+    if(btn===1 || btn===2) {
         document.querySelector(".btn").disabled = true;
         document.querySelector(".btn1000").disabled = true;
+        document.querySelector(".btnRN").disabled = true;
+        win.innerHTML = "Rolling...";
     }
     
-    if(c%1000===0) {
+    if(c%1000===0 && btn===1) {
         clearInterval(myInterval);
         document.querySelector(".btn").disabled = false;
         document.querySelector(".btn1000").disabled = false;
-    }
-
-    if(thousand===1 && c%1000===0) {
+        document.querySelector(".btnRN").disabled = false;
         if(p1Score>p2Score) {
             win.innerHTML = c/1000+"000th Roll Winner: Player 1🚩";
         } else if(p1Score<p2Score) {
@@ -104,8 +116,22 @@ function roll() {
             win.innerHTML = c/1000+"000th Roll Winner: ⭐Draw!⭐";
         }
     }
+    
+    if(c%rnRand===0 && btn===2) {
+        clearInterval(myInterval);
+        document.querySelector(".btn").disabled = false;
+        document.querySelector(".btn1000").disabled = false;
+        document.querySelector(".btnRN").disabled = false;
+        if(p1Score>p2Score) {
+            win.innerHTML = "RN Roll Winner: Player 1🚩";
+        } else if(p1Score<p2Score) {
+            win.innerHTML = "RN Roll Winner: Player 2🚩";
+        } else {
+            win.innerHTML = "RN Roll Winner: ⭐Draw!⭐";
+        }
+    }
 
-    footerName.innerHTML = "Shihab🙂";
+    
 }
 
 
