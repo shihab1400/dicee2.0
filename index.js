@@ -2,7 +2,7 @@
 var p1Score = 0;
 var p2Score = 0;
 
-var win = document.querySelector("h1");
+var win = document.querySelector(".heading");
 var dicee1 = document.querySelector(".dicee1");
 var dicee2 = document.querySelector(".dicee2");
 var sC1 = document.querySelectorAll(".scoreContainer")[0];
@@ -12,7 +12,8 @@ var s2 = document.querySelector(".score2");
 var t1 = document.querySelectorAll(".scoreContainer h4")[0];
 var t2 = document.querySelectorAll(".scoreContainer h4")[1];
 var count = document.querySelector(".count");
-var footerName = document.querySelector(".footer span");
+var footerImoji = document.querySelector(".footer span");
+var start = document.querySelector(".start");
 
 var c = 0;
 var doubleRoll = 0;
@@ -20,20 +21,24 @@ var myInterval;
 var btn;
 var rnRand;
 
-document.querySelector(".btn").addEventListener("click", function() {
-    footerName.innerHTML = "Shihab🙂";
+document.querySelector(".rlBtn").addEventListener("click", function() {
+    footerImoji.innerHTML = "🙂";
     btn = 0;
     roll();
 });
 
+document.querySelector(".btnStart").addEventListener("click", function() {
+    start.style.display = "none";
+});
+
 document.querySelector(".btn1000").addEventListener("click", function() {
-    footerName.innerHTML = "Shihab🙂";
+    footerImoji.innerHTML = "🙂";
     btn = 1;
     myInterval = setInterval(roll, 1);
 });
 
 document.querySelector(".btnRN").addEventListener("click", function() {
-    footerName.innerHTML = "Shihab🙂";
+    footerImoji.innerHTML = "🙂";
     btn = 2;
     rnRand = Math.ceil(Math.random()*5000)+5000;
     myInterval = setInterval(roll, 1);
@@ -42,6 +47,10 @@ document.querySelector(".btnRN").addEventListener("click", function() {
 function roll() {
     var rand1 = Math.ceil(Math.random()*6);
     var rand2 = Math.ceil(Math.random()*6);
+
+    if(Math.abs(rand1-rand2)===5) {
+        doubleRoll++;
+    }
 
     if(btn===0) {
         if(doubleRoll>0 && Math.abs(rand1-rand2)!=5) {
@@ -66,11 +75,30 @@ function roll() {
                 win.innerHTML = "Round Winner: ⭐Draw!⭐";
             }
         }
+        if(Math.abs(rand1-rand2)===5) {
+            win.innerHTML = "Double Roll Round!🥁("+doubleRoll+")";
+        }
     }
 
-    if(Math.abs(rand1-rand2)===5) {
-        doubleRoll++;
-        win.innerHTML = "Double Roll Round!🥁("+doubleRoll+")";
+    if(btn===1 || btn===2) {
+        if(doubleRoll>0 && Math.abs(rand1-rand2)!=5) {
+            if(rand1>rand2) {
+                p1Score+=2*(rand1-rand2);
+            } else if(rand1<rand2) {
+                p2Score+=2*(rand2-rand1);
+            }
+            doubleRoll--;
+        } else if(Math.abs(rand1-rand2)!=5) {
+            if(rand1>rand2) {
+                p1Score+=(rand1-rand2);
+            } else if(rand1<rand2) {
+                p2Score+=(rand2-rand1);
+            }
+        }
+        document.querySelector(".btn1").disabled = true;
+        document.querySelector(".btn1000").disabled = true;
+        document.querySelector(".btnRN").disabled = true;
+        win.innerHTML = "Rolling...";
     }
         
     dicee1.setAttribute("src", "images/"+rand1+".png");
@@ -95,17 +123,10 @@ function roll() {
     
     c++;
     count.innerHTML = c;
-
-    if(btn===1 || btn===2) {
-        document.querySelector(".btn").disabled = true;
-        document.querySelector(".btn1000").disabled = true;
-        document.querySelector(".btnRN").disabled = true;
-        win.innerHTML = "Rolling...";
-    }
     
     if(c%1000===0 && btn===1) {
         clearInterval(myInterval);
-        document.querySelector(".btn").disabled = false;
+        document.querySelector(".btn1").disabled = false;
         document.querySelector(".btn1000").disabled = false;
         document.querySelector(".btnRN").disabled = false;
         if(p1Score>p2Score) {
@@ -119,7 +140,7 @@ function roll() {
     
     if(c%rnRand===0 && btn===2) {
         clearInterval(myInterval);
-        document.querySelector(".btn").disabled = false;
+        document.querySelector(".btn1").disabled = false;
         document.querySelector(".btn1000").disabled = false;
         document.querySelector(".btnRN").disabled = false;
         if(p1Score>p2Score) {
@@ -130,10 +151,6 @@ function roll() {
             win.innerHTML = "RN Roll Winner: ⭐Draw!⭐";
         }
     }
-
-    
 }
-
-
 
 
