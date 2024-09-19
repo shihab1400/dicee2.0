@@ -12,31 +12,42 @@
 </head>
 <body>
 
-    <h1>Roll the Dicee!</h1>
+    <div class="start">
+        <h1 class="startHeading">Roll your Luck!</h1>
+        <h3 class="startScoringHeading">Scoring Rules</h3>
+        <p class="rules">1. Player will win if he gets higher points.</p>
+        <p class="rules">2. Winner Player Score = Winner Player Score + (Winner Player Score - Lost Player Score)</p>
+        <p class="startScoringHeading">Double Roll Round Scoring System</p>
+        <p class="rules">If one player rolls a '1' and another player rolls a '6', then no one gets any points for that round. However, the next round will be a Double Roll Round, or simply a DR Round. In this round, the winning player will earn double points (2x). If the roll results in '1' and '6' again during this round, the following two rounds will be DR Rounds, and so on.
+        </p>
+        <button class="btn btnStart">Start</button>
+    </div>
+
+    <h1 class="heading">Roll the Dicee!</h1>
 
     <div class="dicee">
         <div class="scoreContainer">
-            <h4>Player 1</h4>
+            <h4 class="player-h4">Player 1</h4>
             <p class="score score1"></p>
         </div>
         <div class="diceePlayer">
-            <h3>Player 1</h3>
+            <h3 class="player-h3">Player 1</h3>
             <img src="images/6.png" class="diceeCube dicee1">
         </div>
         <div class="diceePlayer">
-            <h3>Player 2</h3>
+            <h3 class="player-h3">Player 2</h3>
             <img src="images/6.png" class="diceeCube dicee2">
         </div>
         <div class="scoreContainer">
-            <h4>Player 2</h4>
+            <h4 class="player-h4">Player 2</h4>
             <p class="score score2"></p>
         </div>
     </div>
-    <button class="btn" title="One by One Roll">Roll</button>
-    <button class="btn btn1000" title="1000th Roll at Once">1000th Roll</button>
-    <button class="btn btnRN" title="Random Times Roll">RN Roll</button>
+    <button class="btn rlBtn btn1" title="One by One Roll">Roll</button>
+    <button class="btn rlBtn btn1000" title="1000th Roll at Once">1000th Roll</button>
+    <button class="btn rlBtn btnRN" title="Random Times Roll">RN Roll</button>
     <p class="countP">Roll Count: <span class="count">0</span></p>
-    <p class="footer">Created by <span><a href="https://www.facebook.com/profile.php?id=100081337193100">Shihab</a>😎</span></p>
+    <p class="footer">Created by <a href="https://www.facebook.com/profile.php?id=100081337193100" target="_blank">Shihab</a><span>😎</span></p>
 
     <script src="index.js"></script>
 </body>
